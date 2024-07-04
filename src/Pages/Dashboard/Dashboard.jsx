@@ -23,6 +23,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import { MenuItem } from "@mui/material";
 import Flag from "react-world-flags";
+import Message from "./Message";
 
 //import another components...............!
 
@@ -240,8 +241,8 @@ const Dashboard = () => {
                 </MenuItem>
               </Menu>
             </div>
-            <div className="" style={{ marginLeft: '10px' }}>
-                <h4 style={{ color: 'gray' }}>hello</h4>
+            <div className="" style={{ marginLeft: '15px', marginRight: '10px' }}>
+                <Message />
             </div>
             <div className="" style={{ marginLeft: '10px' }}>
                 <h4 style={{ color: 'gray' }}>hello</h4>
