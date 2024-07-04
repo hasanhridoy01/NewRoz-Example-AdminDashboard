@@ -18,9 +18,20 @@ import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
 
 import MenuOpenIcon from "@mui/icons-material/MenuOpen";
-import { TextField } from "@mui/material";
+import { InputAdornment, Menu, TextField } from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import { MenuItem } from "@mui/material";
+import Flag from "react-world-flags";
+
+//import another components...............!
 
 const drawerWidth = 240;
+
+const flagStyle = {
+  width: "24px",
+  height: "19px", // Rounded flag
+};
 
 const openedMixin = (theme) => ({
   width: drawerWidth,
@@ -99,6 +110,23 @@ const Dashboard = () => {
     setOpen(false);
   };
 
+  //flag section......................!
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [selectedCountry, setSelectedCountry] = React.useState("FR"); // Default to France
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleSelect = (countryCode) => {
+    setSelectedCountry(countryCode);
+    handleClose();
+  };
+
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
@@ -111,47 +139,114 @@ const Dashboard = () => {
           borderBottom: "1px solid #e0e0e0",
         }}
       >
-        <Toolbar>
-          <IconButton
-            color="gray"
-            aria-label="toggle drawer"
-            onClick={open ? handleDrawerClose : handleDrawerOpen}
-            edge="start"
-            sx={{
-              marginRight: 5,
-            }}
-          >
-            {open ? (
-              theme.direction === "rtl" ? (
-                <MenuOpenIcon />
+        <Toolbar
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <div className="">
+            <IconButton
+              color="gray"
+              aria-label="toggle drawer"
+              onClick={open ? handleDrawerClose : handleDrawerOpen}
+              edge="start"
+              sx={{
+                marginRight: 2,
+              }}
+            >
+              {open ? (
+                theme.direction === "rtl" ? (
+                  <MenuOpenIcon />
+                ) : (
+                  <MenuOpenIcon />
+                )
               ) : (
-                <MenuOpenIcon />
-              )
-            ) : (
-              <MenuIcon />
-            )}
-          </IconButton>
-          <TextField
-            placeholder="Search..."
-            variant="outlined"
-            sx={{
-              backgroundColor: "#ECF0FA",
-              borderRadius: "14px",
-              marginLeft: 2,
-              width: "300px",
-              color: "gray",
-              "& .MuiOutlinedInput-root": {
-                "& fieldset": {
-                  border: "none",
+                <MenuIcon />
+              )}
+            </IconButton>
+            <TextField
+              placeholder="Search for anything..."
+              variant="outlined"
+              sx={{
+                backgroundColor: "#ECF0FA",
+                borderRadius: "23px",
+                marginLeft: 2,
+                marginRight: 0,
+                width: "300px",
+                color: "gray",
+                "& .MuiOutlinedInput-root": {
+                  "& fieldset": {
+                    border: "none",
+                  },
+                  "& .MuiInputBase-input": {
+                    height: "21px",
+                    padding: "8px",
+                    paddingLeft: "15px",
+                    fontSize: "14px",
+                    color: "gray",
+                  },
                 },
-                "& .MuiInputBase-input": {
-                  height: "21px",
-                  padding: "8px",
-                  paddingLeft: '15px'
-                },
-              },
-            }}
-          />
+              }}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <SearchIcon sx={{ color: "gray", fontSize: "20px" }} />
+                  </InputAdornment>
+                ),
+              }}
+            />
+          </div>
+          <div className="" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <div className="">
+              <IconButton onClick={handleClick} style={{ padding: 0 }}>
+                <Flag code={selectedCountry} style={flagStyle} />
+              </IconButton>
+              <Menu
+                anchorEl={anchorEl}
+                open={Boolean(anchorEl)}
+                onClose={handleClose}
+                anchorOrigin={{
+                  vertical: "bottom", // Positioning the menu relative to the bottom of the button
+                  horizontal: "center", // Center the menu horizontally relative to the button
+                }}
+                transformOrigin={{
+                  vertical: "top", // Transform the menu so that its top aligns with the bottom of the button
+                  horizontal: "center", // Center the menu horizontally relative to the button
+                }}
+                PaperProps={{
+                  style: {
+                    marginTop: "22px", // Adjust the gap as needed
+                    padding: "7px",
+                  },
+                }}
+              >
+                <MenuItem onClick={() => handleSelect("FR")}>
+                  <Flag code="FR" style={flagStyle} />
+                  <span style={{ marginLeft: '9px' }}>France</span>
+                </MenuItem>
+                <MenuItem onClick={() => handleSelect("DE")}>
+                  <Flag code="DE" style={flagStyle} />
+                  <span style={{ marginLeft: '9px' }}>Germany</span>
+                </MenuItem>
+                <MenuItem onClick={() => handleSelect("IT")}>
+                  <Flag code="IT" style={flagStyle} />
+                  <span style={{ marginLeft: '9px' }}>Italy</span>
+                </MenuItem>
+                <MenuItem onClick={() => handleSelect("ES")}>
+                  <Flag code="ES" style={flagStyle} />
+                  <span style={{ marginLeft: '9px' }}>Spain</span>
+                </MenuItem>
+              </Menu>
+            </div>
+            <div className="" style={{ marginLeft: '10px' }}>
+                <h4 style={{ color: 'gray' }}>hello</h4>
+            </div>
+            <div className="" style={{ marginLeft: '10px' }}>
+                <h4 style={{ color: 'gray' }}>hello</h4>
+            </div>
+          </div>
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>
@@ -162,12 +257,23 @@ const Dashboard = () => {
             justifyContent: "center",
           }}
         >
-          <Typography
-            variant="h4"
-            sx={{ textAlign: "center", fontWeight: "600" }}
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
           >
-            Valex
-          </Typography>
+            <DashboardIcon
+              sx={{ fontSize: 24, color: "gray", marginRight: 1 }}
+            />
+            <Typography
+              variant="h5"
+              sx={{ fontWeight: "400", fontStyle: "italic", color: "gray" }}
+            >
+              Dashboard
+            </Typography>
+          </Box>
         </DrawerHeader>
         <Divider />
         <List>
