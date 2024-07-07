@@ -14,21 +14,19 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
-
 import MenuOpenIcon from "@mui/icons-material/MenuOpen";
-import { InputAdornment, Menu, TextField } from "@mui/material";
+import { InputAdornment, Menu, MenuItem, TextField } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import DashboardIcon from "@mui/icons-material/Dashboard";
-import { MenuItem } from "@mui/material";
+import PagesIcon from "@mui/icons-material/Pages"; // Import Pages Icon
+import FormatIndentIncreaseSharpIcon from '@mui/icons-material/FormatIndentIncreaseSharp';   // Import Forms Icon
+import TableChartIcon from "@mui/icons-material/TableChart"; // Import Tables Icon
+import MapIcon from "@mui/icons-material/Map"; // Import Maps Icon
 import Flag from "react-world-flags";
 import Message from "./Message";
 import Notifications from "./Notification";
 import AvatarImages from "./AvatarImages";
 import SettingsMenu from "./Settings";
-
-//import another components...............!
 
 const drawerWidth = 240;
 
@@ -63,7 +61,6 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   alignItems: "center",
   justifyContent: "flex-end",
   padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
   ...theme.mixins.toolbar,
 }));
 
@@ -102,33 +99,49 @@ const Drawer = styled(MuiDrawer, {
   }),
 }));
 
+const iconMap = {
+  Dashboard: <DashboardIcon />,
+  Pages: <PagesIcon />,
+  Forms: <FormatIndentIncreaseSharpIcon />,
+  Tables: <TableChartIcon />,
+  Maps: <MapIcon />,
+};
+
 const Dashboard = () => {
   const theme = useTheme();
   const [open, setOpen] = React.useState(true);
+  const [selectedTab, setSelectedTab] = React.useState("Dashboard");
 
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
+  const handleDrawerOpen = () => setOpen(true);
+  const handleDrawerClose = () => setOpen(false);
 
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
-
-  //flag section......................!
+  // Flag section
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const [selectedCountry, setSelectedCountry] = React.useState("FR"); // Default to France
+  const [selectedCountry, setSelectedCountry] = React.useState("FR");
 
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
+  const handleClick = (event) => setAnchorEl(event.currentTarget);
+  const handleClose = () => setAnchorEl(null);
   const handleSelect = (countryCode) => {
     setSelectedCountry(countryCode);
     handleClose();
+  };
+
+  // Render content based on selectedTab
+  const renderContent = () => {
+    switch (selectedTab) {
+      case "Dashboard":
+        return <Typography>Dashboard Content</Typography>;
+      case "Pages":
+        return <Typography>Pages Content</Typography>;
+      case "Forms":
+        return <Typography>Forms Content</Typography>;
+      case "Tables":
+        return <Typography>Tables Content</Typography>;
+      case "Maps":
+        return <Typography>Maps Content</Typography>;
+      default:
+        return <Typography>Select a tab</Typography>;
+    }
   };
 
   return (
@@ -150,7 +163,7 @@ const Dashboard = () => {
             alignItems: "center",
           }}
         >
-          <div className="">
+          <div>
             <IconButton
               color="gray"
               aria-label="toggle drawer"
@@ -202,8 +215,14 @@ const Dashboard = () => {
               }}
             />
           </div>
-          <div className="" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <div className="">
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
+            <div>
               <IconButton onClick={handleClick} style={{ padding: 0 }}>
                 <Flag code={selectedCountry} style={flagStyle} />
               </IconButton>
@@ -212,49 +231,49 @@ const Dashboard = () => {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
                 anchorOrigin={{
-                  vertical: "bottom", // Positioning the menu relative to the bottom of the button
-                  horizontal: "center", // Center the menu horizontally relative to the button
+                  vertical: "bottom",
+                  horizontal: "center",
                 }}
                 transformOrigin={{
-                  vertical: "top", // Transform the menu so that its top aligns with the bottom of the button
-                  horizontal: "center", // Center the menu horizontally relative to the button
+                  vertical: "top",
+                  horizontal: "center",
                 }}
                 PaperProps={{
                   style: {
-                    marginTop: "22px", // Adjust the gap as needed
+                    marginTop: "22px",
                     padding: "8px",
                   },
                 }}
               >
                 <MenuItem onClick={() => handleSelect("FR")}>
                   <Flag code="FR" style={flagStyle} />
-                  <span style={{ marginLeft: '9px' }}>France</span>
+                  <span style={{ marginLeft: "9px" }}>France</span>
                 </MenuItem>
                 <MenuItem onClick={() => handleSelect("DE")}>
                   <Flag code="DE" style={flagStyle} />
-                  <span style={{ marginLeft: '9px' }}>Germany</span>
+                  <span style={{ marginLeft: "9px" }}>Germany</span>
                 </MenuItem>
                 <MenuItem onClick={() => handleSelect("IT")}>
                   <Flag code="IT" style={flagStyle} />
-                  <span style={{ marginLeft: '9px' }}>Italy</span>
+                  <span style={{ marginLeft: "9px" }}>Italy</span>
                 </MenuItem>
                 <MenuItem onClick={() => handleSelect("ES")}>
                   <Flag code="ES" style={flagStyle} />
-                  <span style={{ marginLeft: '9px' }}>Spain</span>
+                  <span style={{ marginLeft: "9px" }}>Spain</span>
                 </MenuItem>
               </Menu>
             </div>
-            <div className="" style={{ marginLeft: '25px', marginRight: '10px' }}>
-                <Message />
+            <div style={{ marginLeft: "25px", marginRight: "10px" }}>
+              <Message />
             </div>
-            <div className="" style={{ marginLeft: '20px' }}>
-                <Notifications />
+            <div style={{ marginLeft: "20px" }}>
+              <Notifications />
             </div>
-            <div className="" style={{ marginLeft: '20px' }}>
-                <AvatarImages />
+            <div style={{ marginLeft: "20px" }}>
+              <AvatarImages />
             </div>
-            <div className="" style={{ marginLeft: '20px' }}>
-                <SettingsMenu />
+            <div style={{ marginLeft: "20px" }}>
+              <SettingsMenu />
             </div>
           </div>
         </Toolbar>
@@ -287,9 +306,10 @@ const Dashboard = () => {
         </DrawerHeader>
         <Divider />
         <List>
-          {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-            <ListItem key={text} disablePadding sx={{ display: "block" }}>
+          {["Dashboard", "Pages", "Forms", "Tables", "Maps"].map((text) => (
+            <ListItem disablePadding sx={{ display: "block" }} key={text}>
               <ListItemButton
+                onClick={() => setSelectedTab(text)}
                 sx={{
                   minHeight: 48,
                   justifyContent: open ? "initial" : "center",
@@ -303,70 +323,20 @@ const Dashboard = () => {
                     justifyContent: "center",
                   }}
                 >
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  {iconMap[text]}
                 </ListItemIcon>
-                <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
-        <Divider />
-        <List>
-          {["All mail", "Trash", "Spam"].map((text, index) => (
-            <ListItem key={text} disablePadding sx={{ display: "block" }}>
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? "initial" : "center",
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : "auto",
-                    justifyContent: "center",
-                  }}
-                >
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
+                <ListItemText sx={{ opacity: open ? 1 : 0 }} primary={text} />
               </ListItemButton>
             </ListItem>
           ))}
         </List>
       </Drawer>
-      <Box component="main" sx={{ flexGrow: 1, p: 5, backgroundColor: '#ECF0FA', height: '100vh' }}>
+      <Box
+        component="main"
+        sx={{ flexGrow: 1, p: 5, backgroundColor: "#ECF0FA", height: "100vh" }}
+      >
         <DrawerHeader />
-        <Typography paragraph>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Rhoncus
-          dolor purus non enim praesent elementum facilisis leo vel. Risus at
-          ultrices mi tempus imperdiet. Semper risus in hendrerit gravida rutrum
-          quisque non tellus. Convallis convallis tellus id interdum velit
-          laoreet id donec ultrices. Odio morbi quis commodo odio aenean sed
-          adipiscing. Amet nisl suscipit adipiscing bibendum est ultricies
-          integer quis. Cursus euismod quis viverra nibh cras. Metus vulputate
-          eu scelerisque felis imperdiet proin fermentum leo. Mauris commodo
-          quis imperdiet massa tincidunt. Cras tincidunt lobortis feugiat
-          vivamus at augue. At augue eget arcu dictum varius duis at consectetur
-          lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa sapien
-          faucibus et molestie ac.
-        </Typography>
-        <Typography paragraph>
-          Consequat mauris nunc congue nisi vitae suscipit. Fringilla est
-          ullamcorper eget nulla facilisi etiam dignissim diam. Pulvinar
-          elementum integer enim neque volutpat ac tincidunt. Ornare suspendisse
-          sed nisi lacus sed viverra tellus. Purus sit amet volutpat consequat
-          mauris. Elementum eu facilisis sed odio morbi. Euismod lacinia at quis
-          risus sed vulputate odio. Morbi tincidunt ornare massa eget egestas
-          purus viverra accumsan in. In hendrerit gravida rutrum quisque non
-          tellus orci ac. Pellentesque nec nam aliquam sem et tortor. Habitant
-          morbi tristique senectus et. Adipiscing elit duis tristique
-          sollicitudin nibh sit. Ornare aenean euismod elementum nisi quis
-          eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
-          posuere sollicitudin aliquam ultrices sagittis orci a.
-        </Typography>
+        {renderContent()}
       </Box>
     </Box>
   );
