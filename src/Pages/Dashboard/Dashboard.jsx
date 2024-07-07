@@ -283,14 +283,15 @@ const Dashboard = () => {
           sx={{
             display: "flex",
             alignItems: "center",
-            justifyContent: "center",
+            justifyContent: "start",
+            marginLeft: '11px'
           }}
         >
           <Box
             sx={{
               display: "flex",
               alignItems: "center",
-              justifyContent: "center",
+              justifyContent: "start",
             }}
           >
             <DashboardIcon
