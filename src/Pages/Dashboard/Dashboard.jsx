@@ -24,6 +24,9 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import { MenuItem } from "@mui/material";
 import Flag from "react-world-flags";
 import Message from "./Message";
+import Notifications from "./Notification";
+import AvatarImages from "./AvatarImages";
+import SettingsMenu from "./Settings";
 
 //import another components...............!
 
@@ -175,14 +178,14 @@ const Dashboard = () => {
                 borderRadius: "23px",
                 marginLeft: 2,
                 marginRight: 0,
-                width: "300px",
+                width: "350px",
                 color: "gray",
                 "& .MuiOutlinedInput-root": {
                   "& fieldset": {
                     border: "none",
                   },
                   "& .MuiInputBase-input": {
-                    height: "21px",
+                    height: "23px",
                     padding: "8px",
                     paddingLeft: "15px",
                     fontSize: "14px",
@@ -219,7 +222,7 @@ const Dashboard = () => {
                 PaperProps={{
                   style: {
                     marginTop: "22px", // Adjust the gap as needed
-                    padding: "7px",
+                    padding: "8px",
                   },
                 }}
               >
@@ -241,11 +244,17 @@ const Dashboard = () => {
                 </MenuItem>
               </Menu>
             </div>
-            <div className="" style={{ marginLeft: '15px', marginRight: '10px' }}>
+            <div className="" style={{ marginLeft: '25px', marginRight: '10px' }}>
                 <Message />
             </div>
-            <div className="" style={{ marginLeft: '10px' }}>
-                <h4 style={{ color: 'gray' }}>hello</h4>
+            <div className="" style={{ marginLeft: '20px' }}>
+                <Notifications />
+            </div>
+            <div className="" style={{ marginLeft: '20px' }}>
+                <AvatarImages />
+            </div>
+            <div className="" style={{ marginLeft: '20px' }}>
+                <SettingsMenu />
             </div>
           </div>
         </Toolbar>
@@ -327,7 +336,7 @@ const Dashboard = () => {
           ))}
         </List>
       </Drawer>
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+      <Box component="main" sx={{ flexGrow: 1, p: 5, backgroundColor: '#ECF0FA', height: '100vh' }}>
         <DrawerHeader />
         <Typography paragraph>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do

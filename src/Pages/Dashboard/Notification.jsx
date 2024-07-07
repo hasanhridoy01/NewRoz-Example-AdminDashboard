@@ -1,8 +1,8 @@
+import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import * as React from "react";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Badge from "@mui/material/Badge";
-import MailIcon from "@mui/icons-material/Mail";
 import { styled } from "@mui/material/styles";
 import { Box, Typography, Avatar } from "@mui/material";
 
@@ -14,14 +14,29 @@ const StyledMenuItem = styled(MenuItem)(({ theme, active }) => ({
   }),
 }));
 
-export default function Message() {
+export default function Notifications() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [activeIndex, setActiveIndex] = React.useState(null); // State for active menu item
   const open = Boolean(anchorEl);
   const [messages, setMessages] = React.useState([
-    { id: 1, name: "Message 1", sender: "Alice", image: "https://via.placeholder.com/40" },
-    { id: 2, name: "Message 2", sender: "Bob", image: "https://via.placeholder.com/40" },
-    { id: 3, name: "Message 3", sender: "Charlie", image: "https://via.placeholder.com/40" },
+    {
+      id: 1,
+      file: "Document1.pdf",
+      time: "2023-07-07 10:30 AM",
+      image: "https://via.placeholder.com/40",
+    },
+    {
+      id: 2,
+      file: "Image2.png",
+      time: "2023-07-07 11:00 AM",
+      image: "https://via.placeholder.com/40",
+    },
+    {
+      id: 3,
+      file: "Report3.docx",
+      time: "2023-07-07 11:30 AM",
+      image: "https://via.placeholder.com/40",
+    },
   ]); // Example messages; replace with your actual message source
 
   const handleClick = (event) => {
@@ -41,9 +56,19 @@ export default function Message() {
   return (
     <div>
       {messages.length > 0 && (
-        <Box sx={{ color: "action.active", cursor: 'pointer' }}>
-          <Badge color="secondary" variant="dot" onClick={handleClick}>
-            <MailIcon />
+        <Box sx={{ color: "action.active", cursor: "pointer" }}>
+          <Badge
+            color="success"
+            variant="dot"
+            overlap="circular"
+            onClick={handleClick}
+            anchorOrigin={{
+              vertical: "top",
+              horizontal: "right",
+            }}
+            
+          >
+            <NotificationsNoneIcon />
           </Badge>
         </Box>
       )}
@@ -72,11 +97,25 @@ export default function Message() {
           },
         }}
       >
-        <Typography variant="h6" sx={{ padding: "10px 16px 0px", borderBottom: "1px solid #ddd", backgroundColor: "#e0e0e0" }}>
-          Messages
+        <Typography
+          variant="h6"
+          sx={{
+            padding: "10px 16px 0px",
+            borderBottom: "1px solid #ddd",
+            backgroundColor: "#e0e0e0",
+          }}
+        >
+          Notification
         </Typography>
-        <Typography sx={{ padding: "0px 18px 12px", borderBottom: "1px solid #ddd", backgroundColor: "#e0e0e0", fontSize: '12px' }}>
-          you have 6 message
+        <Typography
+          sx={{
+            padding: "0px 18px 12px",
+            borderBottom: "1px solid #ddd",
+            backgroundColor: "#e0e0e0",
+            fontSize: "12px",
+          }}
+        >
+          You have {messages.length} Notification
         </Typography>
         {messages.length > 0 ? (
           messages.map((message, index) => (
@@ -85,15 +124,22 @@ export default function Message() {
               onClick={() => handleMenuItemClick(index)}
               active={index === activeIndex} // Pass the active state
             >
-              <Avatar alt={message.sender} src={message.image} sx={{ marginRight: 2 }} />
+              <Avatar
+                alt={`Message ${message.id}`}
+                src={message.image}
+                sx={{ marginRight: 2 }}
+              />
               <div>
-                <Typography variant="body1">{`ID: ${message.id} - ${message.name}`}</Typography>
-                <Typography variant="body2" color="textSecondary">{`from ${message.sender}`}</Typography>
+                <Typography variant="body1">{`File: ${message.file}`}</Typography>
+                <Typography
+                  variant="body2"
+                  color="textSecondary"
+                >{`Time: ${message.time}`}</Typography>
               </div>
             </StyledMenuItem>
           ))
         ) : (
-          <MenuItem onClick={handleClose}>No messages</MenuItem>
+          <MenuItem onClick={handleClose}>No Notification</MenuItem>
         )}
       </Menu>
     </div>
