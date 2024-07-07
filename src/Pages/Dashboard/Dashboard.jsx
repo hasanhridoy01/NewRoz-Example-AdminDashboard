@@ -29,6 +29,7 @@ import AvatarImages from "./AvatarImages";
 import SettingsMenu from "./Settings";
 import RestartAltSharpIcon from '@mui/icons-material/RestartAltSharp';
 import CrisisAlertSharpIcon from '@mui/icons-material/CrisisAlertSharp';
+import Sales from "../DashboardSales/Sales";
 
 const drawerWidth = 240;
 
@@ -134,7 +135,7 @@ const Dashboard = () => {
   const renderContent = () => {
     switch (selectedTab) {
       case "Dashboard":
-        return <Typography>Dashboard Content</Typography>;
+        return <Sales />;
       case "Pages":
         return <Typography>Pages Content</Typography>;
       case "Forms":
@@ -271,10 +272,10 @@ const Dashboard = () => {
                 </MenuItem>
               </Menu>
             </div>
-            <div style={{ marginLeft: "25px", marginRight: "10px" }}>
+            <div style={{ marginLeft: "25px", }}>
               <Message />
             </div>
-            <div style={{ marginLeft: "20px" }}>
+            <div style={{ marginLeft: "25px" }}>
               <Notifications />
             </div>
             <div style={{ marginLeft: "20px" }}>
