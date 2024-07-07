@@ -19,7 +19,7 @@ import { InputAdornment, Menu, MenuItem, TextField } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import PagesIcon from "@mui/icons-material/Pages"; // Import Pages Icon
-import FormatIndentIncreaseSharpIcon from '@mui/icons-material/FormatIndentIncreaseSharp';   // Import Forms Icon
+import FormatIndentIncreaseSharpIcon from "@mui/icons-material/FormatIndentIncreaseSharp"; // Import Forms Icon
 import TableChartIcon from "@mui/icons-material/TableChart"; // Import Tables Icon
 import MapIcon from "@mui/icons-material/Map"; // Import Maps Icon
 import Flag from "react-world-flags";
@@ -27,6 +27,8 @@ import Message from "./Message";
 import Notifications from "./Notification";
 import AvatarImages from "./AvatarImages";
 import SettingsMenu from "./Settings";
+import RestartAltSharpIcon from '@mui/icons-material/RestartAltSharp';
+import CrisisAlertSharpIcon from '@mui/icons-material/CrisisAlertSharp';
 
 const drawerWidth = 240;
 
@@ -105,6 +107,8 @@ const iconMap = {
   Forms: <FormatIndentIncreaseSharpIcon />,
   Tables: <TableChartIcon />,
   Maps: <MapIcon />,
+  Loading: <RestartAltSharpIcon />,
+  Utilities: <CrisisAlertSharpIcon />,
 };
 
 const Dashboard = () => {
@@ -139,6 +143,10 @@ const Dashboard = () => {
         return <Typography>Tables Content</Typography>;
       case "Maps":
         return <Typography>Maps Content</Typography>;
+      case "Loading":
+        return <Typography>Loading Content</Typography>;
+      case "Utilities":
+        return <Typography>Utilities Content</Typography>;
       default:
         return <Typography>Select a tab</Typography>;
     }
@@ -284,7 +292,7 @@ const Dashboard = () => {
             display: "flex",
             alignItems: "center",
             justifyContent: "start",
-            marginLeft: '11px'
+            marginLeft: "11px",
           }}
         >
           <Box
@@ -307,7 +315,15 @@ const Dashboard = () => {
         </DrawerHeader>
         <Divider />
         <List>
-          {["Dashboard", "Pages", "Forms", "Tables", "Maps"].map((text) => (
+          {[
+            "Dashboard",
+            "Pages",
+            "Forms",
+            "Tables",
+            "Maps",
+            "Loading",
+            "Utilities",
+          ].map((text) => (
             <ListItem disablePadding sx={{ display: "block" }} key={text}>
               <ListItemButton
                 onClick={() => setSelectedTab(text)}
